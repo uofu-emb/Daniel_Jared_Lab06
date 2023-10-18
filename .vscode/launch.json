@@ -1,0 +1,47 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "c:/Users/dknel/Workspace_STM/ECE5960-Lab6/.pio/build/disco_renode/firmware.elf",
+            "projectEnvName": "disco_renode",
+            "toolchainBinDir": "C:/Users/dknel/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/dknel/.platformio/platforms/ststm32/misc/svd/STM32F072x.svd",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug (disco_renode)"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "c:/Users/dknel/Workspace_STM/ECE5960-Lab6/.pio/build/disco_renode/firmware.elf",
+            "projectEnvName": "disco_renode",
+            "toolchainBinDir": "C:/Users/dknel/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/dknel/.platformio/platforms/ststm32/misc/svd/STM32F072x.svd"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "c:/Users/dknel/Workspace_STM/ECE5960-Lab6/.pio/build/disco_renode/firmware.elf",
+            "projectEnvName": "disco_renode",
+            "toolchainBinDir": "C:/Users/dknel/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/dknel/.platformio/platforms/ststm32/misc/svd/STM32F072x.svd",
+            "loadMode": "manual"
+        }
+    ]
+}
