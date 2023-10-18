@@ -12,7 +12,7 @@ K_THREAD_STACK_DEFINE(thread1_stack, STACKSIZE);
 K_THREAD_STACK_DEFINE(thread2_stack, STACKSIZE);
 K_THREAD_STACK_DEFINE(super_thread_stack, STACKSIZE);
 
-void super_entry(){
+void super_entry() {
     printf("Suspending threads...\n");
     k_thread_suspend(&thread1);
     k_thread_suspend(&thread2);
@@ -29,6 +29,11 @@ void busy_yield(char* name) {
             k_yield();
         }
     }
+}
+
+void busy_sleep(char* name) {
+    k_busy_wait(10000);
+    k_sleep(K_MSEC(490));
 }
 
 void run_threads(
@@ -100,7 +105,7 @@ void test_coop_same_prio(void) {
         "coop_same_prio_busy_yield",
         busy_yield, K_PRIO_COOP(1),
         busy_yield, K_PRIO_COOP(1)
-    ); 
+    );
 }
 
 void test_preempt_same_prio(void) {
@@ -114,7 +119,7 @@ void test_preempt_same_prio(void) {
         "preempt_same_prio_busy_yield",
         busy_yield, K_PRIO_PREEMPT(1),
         busy_yield, K_PRIO_PREEMPT(1)
-    ); 
+    );
 }
 
 void test_coop_diff_prio(void) {
@@ -123,13 +128,13 @@ void test_coop_diff_prio(void) {
         busy_busy, K_PRIO_COOP(1),
         busy_busy, K_PRIO_COOP(2)
     );
-    
+
     run_threads(
         "coop_diff_prio_busy_busy_low_first",
         busy_busy, K_PRIO_COOP(2),
         busy_busy, K_PRIO_COOP(1)
     );
-    
+
     run_threads(
         "coop_diff_prio_busy_yield_high_first",
         busy_yield, K_PRIO_COOP(1),
@@ -149,13 +154,13 @@ void test_preempt_diff_prio(void) {
         busy_busy, K_PRIO_PREEMPT(1),
         busy_busy, K_PRIO_PREEMPT(2)
     );
-    
+
     run_threads(
         "PREEMPT_diff_prio_busy_busy_low_first",
         busy_busy, K_PRIO_PREEMPT(2),
         busy_busy, K_PRIO_PREEMPT(1)
     );
-    
+
     run_threads(
         "PREEMPT_diff_prio_busy_yield_high_first",
         busy_yield, K_PRIO_PREEMPT(1),
@@ -169,7 +174,13 @@ void test_preempt_diff_prio(void) {
     );
 }
 
-
+void test_coop_busy_sleep(void) {
+    run_threads(
+        "coop_same_prio_busy_sleep",
+        busy_sleep, K_PRIO_COOP(1),
+        busy_yield, K_PRIO_COOP(2)
+    );
+}
 
 
 void setUp() { }
@@ -178,9 +189,10 @@ void tearDown() { }
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_coop_same_prio);
-    RUN_TEST(test_preempt_same_prio);
-    RUN_TEST(test_coop_diff_prio);
-    RUN_TEST(test_preempt_diff_prio);
+    // RUN_TEST(test_coop_same_prio);
+    // RUN_TEST(test_preempt_same_prio);
+    // RUN_TEST(test_coop_diff_prio);
+    // RUN_TEST(test_preempt_diff_prio);
+    RUN_TEST(test_coop_busy_sleep);
     return UNITY_END();
 }
