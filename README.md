@@ -15,3 +15,12 @@ The Prempt threads will share resources much better. For the same priority test 
 Output description: In the test output, t1 and t2 are thread 1 and thread 2. By default, we always start thread 1 first regardless of priority (because we delay the second thread). The two times are immediatly after t1 and t2 for a single test.
    
 ![alt](activity_1_output.png)
+
+
+Activity-2: Predictions and Output
+--------------------------------------------
+We predicted that the the yield would take up a much greater amount of time. The busy_sleep function does a k_busy_wait for 10ms, and then a sleep (which puts the thread to sleep) for 490ms. So we'd expect the yield thread would take about 49x more time at most because it'd run while the other thread is asleep, but not run during the k_busy_wait function. But it'd be a lot less than 49x more because the yield thread has a lower priority and is always yielding to other threads.
+
+Output description: Thread 1 is running busy_sleep with higher priority, and thread 2 is running busy_yeild with lower priority. Both threads are coop priorities. The result was that the yield thread was run about 3.8 times longer than the sleep thread.
+
+![alt](activity_2_output.png)
